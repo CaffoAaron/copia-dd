@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- Mirrored from dinaut.com/peru/admin/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 26 Jul 2021 04:33:48 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+        <meta charset="utf-8" />
+        <title>Atipica publicidad - DINAUT</title>        <!--<meta http-equiv="Content-Type" content="text/html" charset="iso-8859-1">-->
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8"> 
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />        <!--[if lt IE 9]>
+          <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link href="https://dinaut.com/peru/admin/skins/iriy-atipica/css/zice.style.css" rel="stylesheet" type="text/css" />
+        <link href="https://dinaut.com/peru/admin/skins/iriy-atipica/css/icon.css" rel="stylesheet" type="text/css" />
+        <link href="https://dinaut.com/peru/admin/skins/iriy-atipica/components/tipsy/tipsy.css" rel="stylesheet" type="text/css"  media="all"/>
+<style type="text/css">
+html {
+	background-image: none;
+}
+#versionBar {
+	background-color:#212121;
+	position:fixed;
+	width:100%;
+	height:35px;
+	bottom:0;
+	left:0;
+	text-align:center;
+	line-height:35px;
+}
+.copyright{
+	text-align:center; font-size:10px; color:#CCC;
+}
+.copyright a{
+	color:#5ea1e6; text-decoration:none
+}    
+</style>
+</head>
+<body >
+         
+<div id="alertMessage" class="error"></div>
+<div id="successLogin"></div>
+<div class="text_success"><img src="https://dinaut.com/peru/admin/skins/iriy-atipica/images/loadder/loader_green.gif"  alt="ziceAdmin" /><span>Cargando por favor espera</span></div>
+
+<div id="login" >
+  <div class="ribbon"></div>
+  <div class="inner">
+  <div  class="logo" ><img src="https://dinaut.com/peru/admin/skins/iriy-atipica/images/logo/logo_login.png" alt="ziceAdmin" /></div>
+  <div class="userbox"></div>
+  <div class="formLogin">
+   <form role="form" method="POST" onsubmit="return sbmtForm();" id="flogin">
+   <input type="hidden" class="login" name="login" value="cms" />
+          <div class="tip">          
+          <input type="text" placeholder="" id="username_id" name="flogin_user" value="" autofocus required>
+          </div>
+          <div class="tip">          
+          <input type="password" placeholder="" id="password" name="flogin_pass" value=""required>
+          </div>
+          <div style="padding:20px 0px 0px 0px ;">
+            <div style="float:left; padding:0px 0px 2px 0px ;">
+           <input type="checkbox" id="on_off" name="remember" class="on_off_checkbox"  value="1"   />
+              <span class="f_help">Recordarme</span>
+              </div>
+          <div style="float:right;padding:2px 0px ;">
+              <div> 
+                <ul class="uibutton-group">
+                   <li><button class="uibutton normal" type="submit"  id="" >Entrar</button></li>
+				   
+               </ul>
+              </div>
+            </div>
+</div>
+
+    </form>
+  </div>
+</div>
+  <div class="clear"></div>
+  <div class="shadow"></div>
+</div>
+
+<!--Login div-->
+<div class="clear"></div>
+<div id="versionBar" >
+  <div class="copyright" > &copy; Copyright 2015  Todos Los Derechos Reservados <span class="tip"><a  href="http://atipicapublicidad.com/" title="Atipica Publicidad" target="_blank">Atipica Publicidad</a> </span> </div>
+  <!-- // copyright-->
+</div>
+<!-- Link JScript-->
+<script type="text/javascript" src="https://dinaut.com/peru/admin/skins/iriy-atipica/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://dinaut.com/peru/admin/skins/iriy-atipica/components/effect/jquery-jrumble.js"></script>
+<script type="text/javascript" src="https://dinaut.com/peru/admin/skins/iriy-atipica/components/ui/jquery.ui.min.js"></script>     
+<script type="text/javascript" src="https://dinaut.com/peru/admin/skins/iriy-atipica/components/tipsy/jquery.tipsy.js"></script>
+<script type="text/javascript" src="https://dinaut.com/peru/admin/skins/iriy-atipica/components/checkboxes/iphone.check.js"></script>
+<script>
+function sbmtForm(){
+    $("#output").hide();
+    $("#output").removeClass('alert-danger');
+    $("#output").removeClass('alert-success');
+    var data = {};
+    data['login'] = 'cms';
+    data['ajax'] = true;
+    data['flogin_user'] = $('#username_id').val();
+    data['flogin_pass'] = $('#password').val();
+    $.post('https://dinaut.com/peru/admin/index.php?ajax',data,function(resp){
+        console.log(resp);      
+        if(resp.error){
+            //$("#output").addClass("alert alert-danger animated fadeInUp").html(resp.message);
+            showError(resp.message);
+            $('.inner').jrumble({ x: 4,y: 0,rotation: 0 }); 
+            $('.inner').trigger('startRumble');
+            setTimeout('$(".inner").trigger("stopRumble")',500);
+            setTimeout('hideTop()',5000);
+            //$("#output").show();
+            $('#password').val('');
+            if(resp.type == 1){ $('#username_id').focus(); }
+            if(resp.type == 3){ $('#password').focus(); }
+        }else{
+            //$("#output").addClass("alert alert-success animated fadeInUp").html('Redireccionando...');
+            //$("#output").show();
+            $("#login").animate({   opacity: 1,top: '49%' }, 200,function(){
+            $('.userbox').show().animate({ opacity: 1 }, 500);
+            $("#login").animate({   opacity: 0,top: '60%' }, 500,function(){
+              $(this).fadeOut(200,function(){
+                $(".text_success").slideDown();
+                $("#successLogin").animate({opacity: 1,height: "200px"},500);              
+              });               
+             }) 
+           });
+           setTimeout( "window.location.href='"+ resp.redirect +"'", 1500 );
+           //window.location = resp.redirect;
+        }
+    },'json');
+    return false;
+}
+$(document).ready(function () {   
+      $('#login').show().animate({   opacity: 1 }, 2000);
+      $('.logo').show().animate({   opacity: 1,top: '40%'}, 800,function(){     
+      $('.logo').show().delay(1200).animate({   opacity: 1,top: '12%' }, 300,function(){
+        $('.formLogin').animate({   opacity: 1,left: '0' }, 300);
+        $('.userbox').animate({ opacity: 0 }, 200).hide();
+       });    
+
+        })  
+      $(".on_off_checkbox").iphoneStyle();
+      $('.tip a ').tipsy({gravity: 'sw'});
+      $('.tip input').tipsy({ trigger: 'focus', gravity: 'w' });
+
+      $('.userload').click(function(e){
+      $('.formLogin').animate({   opacity: 1,left: '0' }, 300);         
+        $('.userbox').animate({ opacity: 0 }, 200,function(){
+          $('.userbox').hide();       
+         });
+      });
+}); 
+      
+      
+  $('#but_login').click(function(e){        
+      if(document.formLogin.username.value == "" || document.formLogin.password.value == "")
+      {
+        showError("Ingrese Usuario / Contraseña");
+        $('.inner').jrumble({ x: 4,y: 0,rotation: 0 }); 
+        $('.inner').trigger('startRumble');
+        setTimeout('$(".inner").trigger("stopRumble")',500);
+        setTimeout('hideTop()',5000);
+        return false;
+      }   
+     hideTop();
+     loading('Verificando',1);    
+     setTimeout( "unloading()", 2000 );
+     setTimeout( "Login()", 2500 );
+  }); 
+
+  
+$('#alertMessage').click(function(){
+  hideTop();
+});
+
+function showError(str){
+  $('#alertMessage').addClass('error').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500)    
+}
+
+function showSuccess(str){
+  $('#alertMessage').removeClass('error').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500) 
+}
+
+function hideTop(){
+  $('#alertMessage').animate({ opacity: 0,right: '-20'}, 500,function(){ $(this).hide(); });  
+} 
+function loading(name,overlay) {  
+    $('body').append('<div id="overlay"></div><div id="preloader">'+name+'..</div>');
+        if(overlay==1){
+        $('#overlay').css('opacity',0.1).fadeIn(function(){  $('#preloader').fadeIn();  });
+        return  false;
+     }
+    $('#preloader').fadeIn();   
+ }
+ function unloading() {  
+    $('#preloader').fadeOut('fast',function(){ $('#overlay').fadeOut(); });
+ }
+
+</script>
+</body>
+
+<!-- Mirrored from dinaut.com/peru/admin/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 26 Jul 2021 04:33:48 GMT -->
+</html>
